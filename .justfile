@@ -7,10 +7,12 @@ build:
         mkdir ./build
     fi
     for cheat in src/*.typ; do
-        input=$(basename $cheat)
+        input=$(basename "$cheat")
+        if [[ "$input" == "template.typ" ]]; then
+            continue
+        fi
         output=${input/\.typ/.pdf}
-        echo $input
-        echo $output
+        echo "$input"
         typst compile "./src/${input}" "./build/${output}"
     done
 
